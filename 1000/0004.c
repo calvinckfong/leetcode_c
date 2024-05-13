@@ -6,18 +6,13 @@ double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Si
 
     for (int i=0; i<c; i++)
     {
-        if (p1<nums1Size && p2<nums2Size) {
-            if (nums1[p1] < nums2[p2]) {
-                prev = result;
-                result = nums1[p1++];
-            } else {
-                prev = result;
-                result = nums2[p2++];
-            }
-        } else if (p1<nums1Size) {
+        if (p1<nums1Size && (p2>=nums2Size || nums1[p1] < nums2[p2]))
+        {
             prev = result;
             result = nums1[p1++];
-        } else if (p2<nums2Size) {
+        }
+        else
+        {
             prev = result;
             result = nums2[p2++];
         }
@@ -26,5 +21,5 @@ double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Si
     if ((nums1Size+nums2Size)%2)
         return (1.0*result);
     else
-        return (1.0*prev+result)*0.5;
+        return 0.5*(prev+result);
 }
